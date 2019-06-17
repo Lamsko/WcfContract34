@@ -65,6 +65,9 @@
     <None Include="Connected Services\ServiceReference1\employeeservice2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ServiceReference1\employeeservice3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ServiceReference1\MyEmployeeService.wsdl" />
     <None Include="Connected Services\ServiceReference1\WcfClient34.ServiceReference1.Employee.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

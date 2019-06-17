@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -66,6 +67,24 @@ namespace WcfContract34
 			Employee result = employees.Find(e => e.id == id);
 			Console.WriteLine(result.ToString());
 			return result;
+		}
+
+		public Stream GetImage(string nazwa)
+		{
+			FileStream file;
+			Console.WriteLine("Wywolano getImage");
+			string filePath = Path.Combine(Environment.CurrentDirectory, "\\image.jpg");
+			try
+			{
+				file = File.OpenRead(filePath);
+			}
+			catch (IOException ioex)
+			{
+				Console.WriteLine("Wyjatek otwarcia pliku {0}", filePath);
+				Console.WriteLine(ioex.ToString());
+				throw ioex;
+			}
+			return file;
 		}
 
 		public void SumaPensji()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -12,6 +13,7 @@ namespace WcfClient34
 	{
 		static void Main(string[] args)
 		{
+			string filePath = Path.Combine(Environment.CurrentDirectory, "klient.jpg");
 			CallbackHandler callbackHandler = new CallbackHandler();
 			InstanceContext instanceContext = new InstanceContext(callbackHandler);
 			EmployeeServiceClient client = new EmployeeServiceClient(instanceContext);
@@ -41,7 +43,8 @@ namespace WcfClient34
 			Console.WriteLine("\t4. Wyszukanie pracownika po nazwisku");
 			Console.WriteLine("\t5. Wyswietlenie wszystkich pracownikow");
 			Console.WriteLine("\t6. Wyswietlenie sumy pensji pracownikow");
-			Console.WriteLine("\t7. Zakonczenie dzialania");
+			Console.WriteLine("\t7. Pobranie obrazka");
+			Console.WriteLine("\t8. Zakonczenie dzialania");
 
 			while (true)
 			{
@@ -94,6 +97,10 @@ namespace WcfClient34
 						client.SumaPensji();
 						break;
 					case 7:
+						Stream stream = client.GetImage("image.jpg");
+						ZapiszPlik(stream, filePath);
+						break;
+					case 8:
 						client.Close();
 						Console.WriteLine("Klient zakonczyl dzialanie");
 						return;
@@ -103,8 +110,26 @@ namespace WcfClient34
 				}
 				Console.WriteLine("Podaj jaka jest kolejna funkcja");
 			}
-			client.Close();
-			Console.WriteLine("Klient zakonczyl dzialanie");
+		}
+
+		private static void ZapiszPlik(Stream instream, string filePath)
+		{
+			const int bufferLength = 8192;
+			int bytecount = 0;
+			int counter = 0;
+			byte[] buffer = new byte[bufferLength];
+			Console.WriteLine("Zapisuje plik {0}", filePath);
+			FileStream outsream = File.Open(filePath, FileMode.Create, FileAccess.Write);
+			while ((counter = instream.Read(buffer, 0, bufferLength)) > 0)
+			{
+				outsream.Write(buffer, 0, counter);
+				Console.Write(".{0}", counter);
+				bytecount += counter;
+			}
+			Console.WriteLine("\nZapisano {0} bajtow", bytecount);
+			outsream.Close();
+			instream.Close();
+			Console.WriteLine("\n Plik zapisany", filePath);
 		}
 	}
 }

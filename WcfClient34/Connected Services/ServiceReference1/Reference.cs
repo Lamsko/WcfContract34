@@ -167,6 +167,12 @@ namespace WcfClient34.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IEmployeeService/SumaPensji")]
         System.Threading.Tasks.Task SumaPensjiAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetImage", ReplyAction="http://tempuri.org/IEmployeeService/GetImageResponse")]
+        System.IO.Stream GetImage(string nazwa);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetImage", ReplyAction="http://tempuri.org/IEmployeeService/GetImageResponse")]
+        System.Threading.Tasks.Task<System.IO.Stream> GetImageAsync(string nazwa);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -258,6 +264,14 @@ namespace WcfClient34.ServiceReference1 {
         
         public System.Threading.Tasks.Task SumaPensjiAsync() {
             return base.Channel.SumaPensjiAsync();
+        }
+        
+        public System.IO.Stream GetImage(string nazwa) {
+            return base.Channel.GetImage(nazwa);
+        }
+        
+        public System.Threading.Tasks.Task<System.IO.Stream> GetImageAsync(string nazwa) {
+            return base.Channel.GetImageAsync(nazwa);
         }
     }
 }
