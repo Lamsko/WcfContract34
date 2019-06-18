@@ -10,11 +10,12 @@ using System.Threading;
 namespace WcfContract34
 {
 	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
-	[ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Single, InstanceContextMode = InstanceContextMode.PerSession)]
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
 	public class MyEmployeeService : IEmployeeService
 	{
 		static List<Employee> employees = new List<Employee>();
 		ICallbackHandler callback = null;
+		double result = 0;
 		public MyEmployeeService()
 		{
 			callback = OperationContext.Current.GetCallbackChannel<ICallbackHandler>();
@@ -89,7 +90,7 @@ namespace WcfContract34
 
 		public void SumaPensji()
 		{
-			double result = 0;
+			
 			foreach(Employee e in employees)
 			{
 				result += e.salary;

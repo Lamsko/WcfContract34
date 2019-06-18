@@ -42,8 +42,8 @@ namespace WcfClient34
 			Console.WriteLine("\t3. Usuniecie pracownika");
 			Console.WriteLine("\t4. Wyszukanie pracownika po nazwisku");
 			Console.WriteLine("\t5. Wyswietlenie wszystkich pracownikow");
-			Console.WriteLine("\t6. Wyswietlenie sumy pensji pracownikow");
-			Console.WriteLine("\t7. Pobranie obrazka");
+			Console.WriteLine("\t6. Wyswietlenie sumy pensji pracownikow (Callback)");
+			Console.WriteLine("\t7. Pobranie obrazka (nie dziala)");
 			Console.WriteLine("\t8. Zakonczenie dzialania");
 
 			while (true)
@@ -74,27 +74,41 @@ namespace WcfClient34
 							salary = Double.Parse(pensja)
 						};
 						client.AddEmployee(newEmployee);
+						Console.WriteLine("Dodano pracownika");
+						Console.WriteLine(client.ToString(newEmployee));
 						break;
 					case 2:
 						Console.WriteLine("Podaj numer pracownika do wyswietlenia.");
 						string numerPr = Console.ReadLine();
-						client.GetEmployee(Int32.Parse(numerPr));
+						Employee showEmployee = client.GetEmployee(Int32.Parse(numerPr));
+						Console.WriteLine(client.ToString(showEmployee));
 						break;
 					case 3:
 						Console.WriteLine("Podaj numer pracownika do usuniecia.");
 						string numerUs = Console.ReadLine();
+						Employee deleteEmployee = client.GetEmployee(Int32.Parse(numerUs));
+						Console.WriteLine("\n" + client.ToString(deleteEmployee));
 						client.DeleteEmployee(Int32.Parse(numerUs));
+						Console.WriteLine("Usunieto pracownika");
 						break;
 					case 4:
 						Console.WriteLine("Podaj nazwisko pracownika do wyszukania");
 						string nazwiskoSz = Console.ReadLine();
-						client.FindEmployeeBySurname(nazwiskoSz);
+						List<Employee> employeefind = new List<Employee>(client.FindEmployeeBySurname(nazwiskoSz));
+						foreach (Employee e in employeefind)
+						{
+							Console.WriteLine(client.ToString(e));
+						}
 						break;
 					case 5:
-						client.GetAllEmployees();
+						List<Employee> allEmployees = new List<Employee>(client.GetAllEmployees());
+						foreach (Employee e in allEmployees)
+						{
+							Console.WriteLine(client.ToString(e));
+						}
 						break;
 					case 6:
-						client.SumaPensji();
+						client.SumaPensjiAsync();
 						break;
 					case 7:
 						Stream stream = client.GetImage("image.jpg");
