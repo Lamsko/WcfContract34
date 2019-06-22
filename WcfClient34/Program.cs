@@ -17,6 +17,9 @@ namespace WcfClient34
 			CallbackHandler callbackHandler = new CallbackHandler();
 			InstanceContext instanceContext = new InstanceContext(callbackHandler);
 			EmployeeServiceClient client = new EmployeeServiceClient(instanceContext);
+			CallbackHandler callbackHandler2 = new CallbackHandler();
+			InstanceContext instanceContext2 = new InstanceContext(callbackHandler2);
+			EmployeeServiceClient client2 = new EmployeeServiceClient(instanceContext);
 			Console.WriteLine("Klient wystartowal");
 			Employee witold = new Employee
 			{
@@ -108,7 +111,7 @@ namespace WcfClient34
 						}
 						break;
 					case 6:
-						client.SumaPensjiAsync();
+						client2.SumaPensjiAsync();
 						break;
 					case 7:
 						Stream stream = client.GetImage("image.jpg");

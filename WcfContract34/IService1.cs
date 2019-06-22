@@ -9,7 +9,7 @@ using System.Text;
 namespace WcfContract34
 {
 	// NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-	[ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(ICallbackHandler))]
+	[ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IAsyncCallbackHandler))]
 	public interface IEmployeeService
 	{
 		[OperationContract]
@@ -37,7 +37,7 @@ namespace WcfContract34
 		Stream GetImage(string nazwa);
 	}
 
-	internal interface ICallbackHandler
+	internal interface IAsyncCallbackHandler
 	{
 		[OperationContract(IsOneWay = true)]
 		void ZwrotSumaPensji(double result);

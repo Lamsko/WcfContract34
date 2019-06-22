@@ -14,11 +14,12 @@ namespace WcfContract34
 	public class MyEmployeeService : IEmployeeService
 	{
 		static List<Employee> employees = new List<Employee>();
-		ICallbackHandler callback = null;
-		double result = 0;
+		IAsyncCallbackHandler callback = null;
+
+		
 		public MyEmployeeService()
 		{
-			callback = OperationContext.Current.GetCallbackChannel<ICallbackHandler>();
+			callback = OperationContext.Current.GetCallbackChannel<IAsyncCallbackHandler>();
 		}
 		public void AddEmployee(Employee employee)
 		{
@@ -90,9 +91,9 @@ namespace WcfContract34
 
 		public void SumaPensji()
 		{
-			
-			foreach(Employee e in employees)
-			{
+			double result = 0;
+			foreach (Employee e in employees)
+			{				
 				result += e.salary;
 				Thread.Sleep(1000);
 			}

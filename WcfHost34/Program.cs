@@ -34,6 +34,11 @@ namespace WcfHost34
 				Console.WriteLine("Wystapil wyjatek {0}", ce.Message);
 				host.Abort();
 			}
+			catch (InvalidOperationException ioe)
+			{
+				Console.WriteLine("Wystapil wyjatek {0}", ioe.Message);
+				host.Abort();
+			}
 		}
 	}
 }
